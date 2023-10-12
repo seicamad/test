@@ -1,0 +1,142 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class JobListing {
+    private int id;
+    private String title;
+    private String description;
+    private double salary;
+    private List<Applicant> applicants;
+
+    public JobListing(int id, String title, String description, double salary) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.salary = salary;
+        this.applicants = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public List<Applicant> getApplicants() {
+        return applicants;
+    }
+
+    public void addApplicant(Applicant applicant) {
+        applicants.add(applicant);
+    }
+}
+
+class Employer {
+    private int id;
+    private String name;
+    private List<JobListing> jobListings;
+
+    public Employer(int id, String name) {
+        this.id = id;
+        this.name = name;
+        this.jobListings = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<JobListing> getJobListings() {
+        return jobListings;
+    }
+
+    public void addJobListing(JobListing jobListing) {
+        jobListings.add(jobListing);
+    }
+}
+
+class Applicant {
+    private int id;
+    private String name;
+    private String email;
+    private String resume;
+
+    public Applicant(int id, String name, String email, String resume) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.resume = resume;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create two employers
+        Employer employer1 = new Employer(1, "Employer X");
+        Employer employer2 = new Employer(2, "Employer Y");
+
+        // Create and add job listings for employer 1
+        employer1.addJobListing(new JobListing(01, "Software Engineer", "Join our development team.", 55000.0));
+        employer1.addJobListing(new JobListing(02, "Data Analyst", "Analyze data for valuable insights.", 40000.0));
+        employer1.addJobListing(new JobListing(03, "Marketing Manager", "Lead marketing campaigns.", 90000.0));
+        employer1.addJobListing(new JobListing(04, "Customer Support", "Assist customers with inquiries.", 65000.0));
+
+        // Create and add job listings for employer 2
+        employer2.addJobListing(new JobListing(201, "Product Manager", "Lead product development.", 80000.0));
+        employer2.addJobListing(new JobListing(202, "Graphic Architect", "Create stunning visuals.", 75000.0));
+
+        // Create 10 applicants for each employer
+        for (int i = 1; i <= 10; i++) {
+            employer1.getJobListings().get(0).addApplicant(new Applicant(i, "Applicant X" + i, "applicantX" + i + "@example.com", "Resume " + i));
+            employer2.getJobListings().get(1).addApplicant(new Applicant(i, "Applicant Y" + i, "applicantY" + i + "@example.com", "Resume " + i));
+        }
+
+        // Display job listings for employer 1
+        displayJobListings(employer1);
+
+        // Display job listings for employer 2
+        displayJobListings(employer2);
+    }
+
+    public static void displayJobListings(Employer employer) {
+        System.out.println("Job Listings for " + employer.getName() + ":");
+        for (JobListing jobListing : employer.getJobListings()) {
+            System.out.println("Job ID: " + jobListing.getId());
+            System.out.println("Title: " + jobListing.getTitle());
+            System.out.println("Description: " + jobListing.getDescription());
+            System.out.println("Salary: $" + jobListing.getSalary());
+            System.out.println("Applicants: " + jobListing.getApplicants().size());
+            System.out.println("------------");
+        }
+    }
+}
